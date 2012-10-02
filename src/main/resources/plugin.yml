@@ -1,0 +1,38 @@
+name: VoxelPlus
+main: com.thevoxelbox.VoxelPlus.VoxelPlusCore
+version: maven-version-number
+website: http://thevoxelbox.com
+author: plusnine et al.
+description: >
+             Libations, potent potables and fine smokeables!
+commands:
+  plusnine:
+    description: Prints out a test command.
+    usage: |
+           /<command>
+           Example: /<command> - hope for the best.
+  getmedrunk:
+    description: Gives you a sweet buzz!
+    usage: |
+           /<command>
+           Example: /<command> - gets ya buzzed with the power of VoxelLager.
+  getotherdrunk:
+    description: Gives your 'friend' a sweet buzz!
+    usage: |
+           /<command>
+           Example: /<command> <friend's name> - gets your 'friend' buzzed with the power of VoxelLager.
+  getmecoffee:
+    description: Gives you a quick pick-me-up that you need sometimes!
+    usage: |
+           /<command>
+           Example: /<command> <coffee strength> - Coffeeeeeee. Strength is 0-15 (I think try 5 to start)
+  vhelm:
+    description: Places block on head!
+    usage: |
+           /<command>
+           Example: /<command> <itemID> - Block helmets! ItemId is any block ID.         
+  vsit:
+    description: Makes you or another player sit
+    usage: |
+           /<command>
+           Example: /<command> <player> - Sitting at its best.
