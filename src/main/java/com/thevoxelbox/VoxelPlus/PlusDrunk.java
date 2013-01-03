@@ -5,12 +5,13 @@ package com.thevoxelbox.VoxelPlus;
  * and open the template in the editor.
  */
 
-import net.minecraft.server.Packet41MobEffect;
-import net.minecraft.server.Packet42RemoveMobEffect;
+import net.minecraft.server.v1_4_6.Packet41MobEffect;
+import net.minecraft.server.v1_4_6.Packet42RemoveMobEffect;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 /**
@@ -77,14 +78,14 @@ public class PlusDrunk implements Runnable {
 
 			drunkpacket.a = drunkplayer.getEntityId();
 			drunkduration -= 200;
-			((CraftPlayer) drunkplayer).getHandle().netServerHandler.sendPacket(drunkpacket);
+			((CraftPlayer) drunkplayer).getHandle().playerConnection.sendPacket(drunkpacket);
 			if (drunkduration <= 0) {
 				if (drunkmessages) {
 					drunkplayer.sendMessage(ChatColor.GOLD + "You feel your buzz start to fade.");
 				}
 				Bukkit.getScheduler().cancelTask(taskid);
 				if (drunkpacket.b == 3 || drunkpacket.b == 1) {
-					((CraftPlayer) drunkplayer).getHandle().netServerHandler.sendPacket(removepacket);
+					((CraftPlayer) drunkplayer).getHandle().playerConnection.sendPacket(removepacket);
 				}
 			}
 		} else {
