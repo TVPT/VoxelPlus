@@ -1,5 +1,11 @@
 package com.thevoxelbox.VoxelPlus.Handlers.Result;
 
-public class Smoke {
+import org.bukkit.entity.Player;
 
+public class Smoke
+{
+	public static boolean SmokePipe(final Player player)
+	{
+		return true;
+	}
 }

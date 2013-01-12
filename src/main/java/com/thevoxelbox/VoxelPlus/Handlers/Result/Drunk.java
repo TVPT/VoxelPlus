@@ -6,6 +6,6 @@ public class Drunk
 {
 	public static boolean DrinkBeer(final Player player)
 	{
-		return false;
+		return true;
 	}
 }

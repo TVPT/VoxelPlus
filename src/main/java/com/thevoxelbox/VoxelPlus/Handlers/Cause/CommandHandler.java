@@ -6,7 +6,7 @@ import com.thevoxelbox.VoxelPlus.Handlers.Result.*;
 
 public class CommandHandler implements Listener
 {
-	public static boolean onCommand(final Player player, final String[] split, final String command)
+	public static boolean onCommand(final Player player, final String[] split, final String command, final String[] args)
 	{
 		if(command.equalsIgnoreCase("getmedrunk")) //drink Lager command
 		{
@@ -24,9 +24,18 @@ public class CommandHandler implements Listener
 		{
 			return Smoke.SmokePipe(player);
 		}
-		else if(command.equalsIgnoreCase("vhelm"))
+		else if(command.equalsIgnoreCase("vhelm")) //wear block command
 		{
-			return WearBlock.WearBlock(player, id, data);
+			switch(args.length)
+			{
+			case 1:
+				return WearBlock.WearBlock(player, args[0]);
+			case 2:
+				return WearBlock.WearBlock(player, args[0], args[1]);
+			default:
+				player.sendMessage("Please type as follows: /vhelm <ID> <data value>");
+				break;
+			}
 		}
 		return false;
 	}
