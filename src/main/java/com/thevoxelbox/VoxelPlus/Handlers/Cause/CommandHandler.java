@@ -1,10 +1,12 @@
 package com.thevoxelbox.VoxelPlus.Handlers.Cause;
 
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import com.thevoxelbox.VoxelPlus.Handlers.Result.*;
 
-public class CommandHandler implements Listener
+public class CommandHandler implements CommandExecutor
 {
 	public static boolean onCommand(final Player player, final String[] split, final String command, final String[] args)
 	{
@@ -37,6 +39,13 @@ public class CommandHandler implements Listener
 				break;
 			}
 		}
+		return false;
+	}
+
+	@Override
+	public boolean onCommand(CommandSender arg0, Command arg1, String arg2,
+			String[] arg3) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }
