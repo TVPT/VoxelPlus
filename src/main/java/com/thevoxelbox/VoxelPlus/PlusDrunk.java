@@ -1,12 +1,12 @@
 package com.thevoxelbox.VoxelPlus;
 
-import net.minecraft.server.Packet41MobEffect;
-import net.minecraft.server.Packet42RemoveMobEffect;
+import net.minecraft.server.v1_5_R3.Packet41MobEffect;
+import net.minecraft.server.v1_5_R3.Packet42RemoveMobEffect;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 /**
