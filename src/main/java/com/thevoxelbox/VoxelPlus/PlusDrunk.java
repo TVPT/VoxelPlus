@@ -1,13 +1,9 @@
 package com.thevoxelbox.VoxelPlus;
 
-import net.minecraft.server.v1_5_R3.Packet41MobEffect;
-import net.minecraft.server.v1_5_R3.Packet42RemoveMobEffect;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 
 /**
  * 
@@ -15,15 +11,15 @@ import org.bukkit.entity.Player;
  */
 public class PlusDrunk implements Runnable {
 
-	private Player drunkplayer;
+	private final Player drunkplayer;
 	private int drunkduration;
-	private Packet41MobEffect drunkpacket;
-	private Packet42RemoveMobEffect removepacket;
+	//private Packet41MobEffect drunkpacket;
+	//private Packet42RemoveMobEffect removepacket;
 	private int taskid;
 	private boolean drunkloggedout = false;
 	private boolean drunkmessages = true;
 
-	public PlusDrunk(Player user, int dur, byte effect, byte amplifier, boolean messages) {
+	public PlusDrunk(Player user, int dur, PotionEffect effect, boolean messages) {
 		drunkplayer = user;
 		drunkduration = dur;
 		drunkmessages = messages;
@@ -35,20 +31,7 @@ public class PlusDrunk implements Runnable {
 				drunkplayer.sendMessage(ChatColor.GOLD + "The VoxeLager goes down smooth and easy.");
 			}
 		}
-		drunkpacket = new Packet41MobEffect();
-		drunkpacket.a = drunkplayer.getEntityId();
-		drunkpacket.b = effect;
-		drunkpacket.c = amplifier;
-		drunkpacket.d = 300;
-
-		if (effect == 1 || effect == 3) {
-			removepacket = new Packet42RemoveMobEffect();
-			removepacket.a = drunkplayer.getEntityId();
-			removepacket.b = effect;
-
-		}
-
-		drunkplayer.playEffect(drunkplayer.getLocation(), Effect.POTION_BREAK, 0);
+		drunkplayer.addPotionEffect(effect);
 
 	}
 
@@ -70,18 +53,12 @@ public class PlusDrunk implements Runnable {
 			} else if (drunkduration >= 1000 && drunkduration <= 1100 && drunkmessages) {
 				drunkplayer.sendMessage(ChatColor.GOLD + "You feel tipsy.  Whee!");
 			}
-
-			drunkpacket.a = drunkplayer.getEntityId();
 			drunkduration -= 200;
-			((CraftPlayer) drunkplayer).getHandle().playerConnection.sendPacket(drunkpacket);
 			if (drunkduration <= 0) {
 				if (drunkmessages) {
 					drunkplayer.sendMessage(ChatColor.GOLD + "You feel your buzz start to fade.");
 				}
 				Bukkit.getScheduler().cancelTask(taskid);
-				if (drunkpacket.b == 3 || drunkpacket.b == 1) {
-					((CraftPlayer) drunkplayer).getHandle().playerConnection.sendPacket(removepacket);
-				}
 			}
 		} else {
 			drunkloggedout = true;

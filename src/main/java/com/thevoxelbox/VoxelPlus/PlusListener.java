@@ -9,6 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * 
@@ -30,7 +32,7 @@ public class PlusListener implements Listener {
             int amount = beerconsume.getPlayer().getItemInHand().getAmount();
             ItemStack emptyBottles = new ItemStack(281, amount);
             beerconsume.getPlayer().setItemInHand(emptyBottles);
-            PlusDrunk drunktank = new PlusDrunk(beerconsume.getPlayer(), (amount * 100) + 400, (byte) 9, (byte) 0, true);
+            PlusDrunk drunktank = new PlusDrunk(beerconsume.getPlayer(), (amount * 100) + 400 , new PotionEffect(PotionEffectType.CONFUSION, (amount * 100) + 400, 0) , true);
             drunktank.settaskid(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, drunktank, 5, 200));
         }
         // right click with book to gain levels
@@ -41,10 +43,10 @@ public class PlusListener implements Listener {
         // (commented out until I can crack checking item data values.
         if (beerconsume.hasItem() && beerconsume.getItem().getTypeId() == 351 && beerconsume.getItem().getDurability() == 3) {
             beerconsume.setCancelled(true);
-            int amount = beerconsume.getPlayer().getItemInHand().getAmount();
-            PlusDrunk drunktank = new PlusDrunk(beerconsume.getPlayer(), 600, (byte) 1, (byte) 3, true);
+            //int amount = beerconsume.getPlayer().getItemInHand().getAmount();
+            PlusDrunk drunktank = new PlusDrunk(beerconsume.getPlayer(), 600, new PotionEffect(PotionEffectType.CONFUSION, 600, 0), true);
             // faster digging
-            PlusDrunk drunktank2 = new PlusDrunk(beerconsume.getPlayer(), 600, (byte) 3, (byte) 3, false);
+            PlusDrunk drunktank2 = new PlusDrunk(beerconsume.getPlayer(), 600, new PotionEffect(PotionEffectType.CONFUSION, 600, 0), false);
             drunktank.settaskid(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, drunktank, 5, 200));
             drunktank2.settaskid(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, drunktank2, 5, 200));
         }
