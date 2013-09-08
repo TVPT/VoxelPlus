@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * 
@@ -39,15 +41,10 @@ public class VoxelPlusCore extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         String commandName = command.getName().toLowerCase();
-        if (commandName.equals("plusnine") && sender instanceof Player) {
-            Player player = (Player) sender;
-            player.sendMessage("plusnine's first plugin works! ...kinda.");
-            return true;
-        }
         // get drunk command (self) by plusnine
         if (commandName.equals("getmedrunk") && sender instanceof Player) {
             Player drunkplayer = (Player) sender;
-            PlusDrunk drunktank = new PlusDrunk(drunkplayer, 600, (byte) 9, (byte) 0, true);
+            PlusDrunk drunktank = new PlusDrunk(drunkplayer, 600, new PotionEffect(PotionEffectType.CONFUSION, 600, 0), true);
             drunktank.settaskid(Bukkit.getScheduler().scheduleSyncRepeatingTask(this, drunktank, 5, 200));
             return true;
         }
@@ -58,7 +55,7 @@ public class VoxelPlusCore extends JavaPlugin {
                 Player player = (Player) sender;
                 for (Player p : player.getServer().getOnlinePlayers()) {
                     if (p.getName().equals(args[0].toString())) {
-                        PlusDrunk drunktank = new PlusDrunk(p, 600, (byte) 9, (byte) 0, true);
+                        PlusDrunk drunktank = new PlusDrunk(p, 600, new PotionEffect(PotionEffectType.CONFUSION, 600, 0), true);
                         drunktank.settaskid(Bukkit.getScheduler().scheduleSyncRepeatingTask(this, drunktank, 5, 200));
                         player.sendMessage(ChatColor.GOLD + p.getName() + " sure did enjoy their VoxelLager");
                         return true;
@@ -75,7 +72,7 @@ public class VoxelPlusCore extends JavaPlugin {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (args.length >= 2) {
-                    player.sendMessage("Too many arguements!");
+                    player.sendMessage("Too many arguments!");
                 } else {
                     int vhelmid = Integer.parseInt(args[0]);
                     ItemStack vhelmstack = new ItemStack(vhelmid);
@@ -125,9 +122,9 @@ public class VoxelPlusCore extends JavaPlugin {
                 if (Integer.parseInt(args[0]) <= 15 && Integer.parseInt(args[0]) >= 0) {
                     Player drunkplayer = (Player) sender;
                     // faster movement
-                    PlusDrunk drunktank = new PlusDrunk(drunkplayer, 600, (byte) 1, (byte) Integer.parseInt(args[0]), true);
+                    PlusDrunk drunktank = new PlusDrunk(drunkplayer, 600, new PotionEffect(PotionEffectType.SPEED, 600, (byte) Integer.parseInt(args[0])), false);
                     // faster digging
-                    PlusDrunk drunktank2 = new PlusDrunk(drunkplayer, 600, (byte) 3, (byte) Integer.parseInt(args[0]), false);
+                    PlusDrunk drunktank2 = new PlusDrunk(drunkplayer, 600, new PotionEffect(PotionEffectType.FAST_DIGGING, 600, (byte) Integer.parseInt(args[0])), false);
                     drunktank.settaskid(Bukkit.getScheduler().scheduleSyncRepeatingTask(this, drunktank, 5, 200));
                     drunktank2.settaskid(Bukkit.getScheduler().scheduleSyncRepeatingTask(this, drunktank2, 5, 200));
                     return true;
